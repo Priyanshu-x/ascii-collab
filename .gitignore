@@ -14,3 +14,7 @@ node_modules/
 
 # Exported files from the app
 canvas_export.txt
+
+# Built Executables
+dist/
+*.exe

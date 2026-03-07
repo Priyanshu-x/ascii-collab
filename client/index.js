@@ -1,8 +1,9 @@
+#!/usr/bin/env node
 const io = require('socket.io-client');
 const blessed = require('blessed');
 const fs = require('fs');
 
-const SERVER_URL = process.argv[2] || 'http://localhost:3000';
+const SERVER_URL = process.argv[2] || 'https://ascii-collab.onrender.com';
 const socket = io(SERVER_URL);
 
 // --- Blessed Setup ---
