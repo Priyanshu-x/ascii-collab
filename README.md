@@ -1,78 +1,91 @@
-# Collaborative ASCII Art Canvas (ascii-collab)
+<div align="center">
+  <h1>🎨 ASCII Collab</h1>
+  <p><strong>A Real-Time, Multiplayer Terminal Drawing Board</strong></p>
+  
+  <p>
+    <a href="#features">Features</a> •
+    <a href="#download--play">Download & Play</a> •
+    <a href="#controls">Controls</a> •
+    <a href="#deployment">Deployment</a>
+  </p>
+</div>
 
-`ascii-collab` is a real-time, terminal-based multiplayer drawing board. Connect to a central server and use your terminal as a shared, peer-to-peer grid where you can place colored ASCII characters, chat, and collaborate with others in real-time. It's like r/place, but entirely text-based!
+---
+
+`ascii-collab` is a real-time, terminal-based multiplayer drawing application. Connect to a central server and use your terminal as a shared grid where you can place colored ASCII characters, chat, and collaborate with others in real-time. It's like r/place, but entirely text-based!
 
 ## Features
-- **Real-Time Collaboration**: Changes to the canvas sync instantly across all connected clients via WebSockets.
-- **Terminal UI**: A robust terminal interface powered by `blessed` with Canvas, Chat, and Status panels.
-- **Smart Drawing Modes**: 
+- 🚀 **Zero Install Client:** Play instantly by downloading the standalone `.exe`! No Node.js required.
+- ⚡ **Real-Time Collaboration**: Changes to the canvas sync instantly across all connected clients via WebSockets.
+- 💻 **Terminal UI**: A robust terminal interface powered by `blessed` featuring Canvas, Chat, and Tool panels.
+- 🛠️ **Smart Drawing Modes**: 
   - **PLACEMENT**: Standard drawing, cursor remains still.
   - **TYPEWRITER**: Cursor automatically advances to the right, behaving like a text editor.
-  - **BRUSH**: Traces paths automatically as you move the cursor using the current brush character.
-- **Rich Color Palette**: Choose from 7 distinct ANSI colors for your brush.
-- **Live Chat**: Send messages to other active users on the server while drawing.
-- **Export Canvas**: Save your masterpiece as raw text at any point.
-- **Clear Canvas**: Wipe the board clean for everyone to start fresh.
-
-## Technology Stack
-- **Server**: Node.js, Express, Socket.io
-- **Client**: Node.js, Socket.io-client, Blessed (Terminal rendering)
+  - **BRUSH**: Traces paths automatically as you move the cursor.
+- 🎨 **Rich Color Palette**: Choose from distinct ANSI colors for your brush.
+- 💬 **Live Chat**: Send messages to other active users on the server while drawing.
+- 💾 **Export / Clear**: Save your masterpiece to `canvas_export.txt` or wipe the board clean for everyone to start fresh.
 
 ---
 
-## Installation & Setup
+## Download & Play
 
-1. **Clone the repository and install dependencies**
-   ```bash
-   npm install
-   ```
+You do not need to install any code to play! We have packaged the app into a standalone executable that connects directly to the official public server (`ascii-collab.onrender.com`).
 
-2. **Start the Server**
-   Start the WebSocket server to host the canvas.
-   ```bash
-   node server/index.js
-   ```
-
-3. **Run the Client**
-   By default, the client connects to `localhost`.
-   ```bash
-   node client/index.js
-   ```
-   **Connecting to a Remote / Custom Server:**
-   You can pass the server URL as an argument to connect to a different machine, either locally or globally!
-   ```bash
-   # Connect over Local Network (LAN)
-   node client/index.js http://192.168.1.50:3000
-
-   # Connect Globally (via Ngrok, Cloudflare Tunnels, Render, etc.)
-   node client/index.js https://my-ascii-server.example.com
-   ```
+1. Go to the **[Releases](../../releases)** tab on GitHub.
+2. Download the latest `ascii-collab.exe` file.
+3. Double click the file, and your terminal will open directly into the global canvas! 
+4. Share the file with friends to draw together!
 
 ---
 
-## Controls & Usage
+## Controls
 
 ### Movement & Drawing
 - **Arrow Keys**: Move your cursor around the grid.
 - **`1` through `7`**: Change your brush color.
-- **Alphanumeric Keys & Symbols**: Type any standard character or symbol to draw it on the grid!
+- **Alphanumeric Keys / Symbols**: Type any standard character or symbol to stamp it on the grid.
 
 ### Modes & Tools
 - **`Tab`**: Cycle through the 3 Smart Drawing Modes (Placement, Typewriter, Brush)
 - **`Backspace`**: In Typewriter mode, deletes the previous character and steps backward.
-- **`/` (Forward Slash)**: Toggle the Mini-Chat! Type your message and press `Enter` to send it. Press `/` again to exit chat.
+- **`Shift + Enter`**: Toggle the Mini-Chat! Type your message and press `Enter` to send it.
 - **`Ctrl+S`**: Export the current canvas to a `canvas_export.txt` file in the project directory.
 - **`Ctrl+L`**: Clear the canvas for all users.
 - **`Ctrl+C`**: Exit the application.
 
 ---
 
-## Technical Details
+## Developer Setup (Host Your Own Server)
 
-- The canvas state consists of a fixed boundary size (e.g. 100 cols x 50 rows).
-- Only valid alphanumeric and symbol characters are allowed on the canvas. Arrow keys and modifier keys are handled appropriately by the frontend before sending a `draw` event back to the server.
-- The cursor is rendered by inverting the character cell colors. If a user with a Red brush is hovering over a Blue "A", the rendered cell will momentarily become a Red background with Black text.
+If you want to host your own server or modify the codebase, follow these steps:
 
-## Known Limitations
-- Rendering speed is tied intimately to your terminal emulator's performance with ANSI color codes and the `blessed` library's event loop.
-- The project currently utilizes a global room structure via Socket.io.
+### Prerequisites
+- Node.js (v16 or higher)
+- npm
+
+### Installation
+```bash
+git clone https://github.com/yourusername/ascii-collab.git
+cd ascii-collab
+npm install
+```
+
+### Running Locally
+1. **Start the Server**
+   ```bash
+   npm start
+   # or run: node server/index.js
+   ```
+
+2. **Run the Client**
+   By default, the client is configured to connect to the global render server. To test locally:
+   ```bash
+   node client/index.js http://localhost:3000
+   ```
+
+### Building the Standalone Executable
+You can build your own Windows `.exe` using `pkg`:
+```bash
+npx pkg . --targets node18-win-x64 --out-path ./dist
+```
