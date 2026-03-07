@@ -34,9 +34,18 @@
    ```
 
 3. **Run the Client**
-   Open a new terminal window / session and join the canvas.
+   By default, the client connects to `localhost`.
    ```bash
    node client/index.js
+   ```
+   **Connecting to a Remote / Custom Server:**
+   You can pass the server URL as an argument to connect to a different machine, either locally or globally!
+   ```bash
+   # Connect over Local Network (LAN)
+   node client/index.js http://192.168.1.50:3000
+
+   # Connect Globally (via Ngrok, Cloudflare Tunnels, Render, etc.)
+   node client/index.js https://my-ascii-server.example.com
    ```
 
 ---
