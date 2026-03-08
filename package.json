@@ -21,6 +21,7 @@
   "pkg": {
     "assets": [
       "./client/node_modules/blessed/usr/**/*"
-    ]
+    ],
+    "icon": "assets/icon.ico"
   }
 }
