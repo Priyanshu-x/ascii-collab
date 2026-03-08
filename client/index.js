@@ -85,7 +85,7 @@ const helpBox = blessed.box({
         fg: 'white'
     },
     hidden: true,
-    label: ' Help Menu (Press F1 or Esc to close) ',
+    label: ' Help Menu (Press F1 or ?to close) ',
     content: `
   {bold}Controls:{/bold}
   • {yellow-fg}Arrow Keys{/yellow-fg}: Move cursor
