@@ -19,7 +19,6 @@
 - ⚡ **Real-Time Collaboration**: Changes to the canvas sync instantly across all connected clients via WebSockets.
 - 💻 **Terminal UI**: A robust terminal interface powered by `blessed` featuring Canvas, Chat, and Tool panels.
 - 🛠️ **Smart Drawing Modes**: 
-  - **PLACEMENT**: Standard drawing, cursor remains still.
   - **TYPEWRITER**: Cursor automatically advances to the right, behaving like a text editor.
   - **BRUSH**: Traces paths automatically as you move the cursor.
 - 🎨 **Rich Color Palette**: Choose from distinct ANSI colors for your brush.
@@ -47,7 +46,8 @@ You do not need to install any code to play! We have packaged the app into a sta
 - **Alphanumeric Keys / Symbols**: Type any standard character or symbol to stamp it on the grid.
 
 ### Modes & Tools
-- **`Tab`**: Cycle through the 3 Smart Drawing Modes (Placement, Typewriter, Brush)
+- **`F1` or `?`**: Toggle the built-in Help Menu overlay!
+- **`Tab`**: Cycle through the 2 Smart Drawing Modes (Typewriter, Brush)
 - **`Backspace`**: In Typewriter mode, deletes the previous character and steps backward.
 - **`Shift + Enter`**: Toggle the Mini-Chat! Type your message and press `Enter` to send it.
 - **`Ctrl+S`**: Export the current canvas to a `canvas_export.txt` file in the project directory.

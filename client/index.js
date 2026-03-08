@@ -22,7 +22,7 @@ const canvasBox = blessed.box({
     style: {
         border: { fg: 'blue' }
     },
-    label: ' Canvas (Use Arrow Keys & Type, [1-7] for Colors)'
+    label: ' Canvas (Use Arrow Keys & Type, [1-7] for Colors, [?] for Help) '
 });
 
 // Chat Area
@@ -73,6 +73,44 @@ screen.append(canvasBox);
 screen.append(chatBox);
 screen.append(statusBox);
 
+const helpBox = blessed.box({
+    top: 'center',
+    left: 'center',
+    width: '65%',
+    height: '65%',
+    border: { type: 'line' },
+    style: {
+        border: { fg: 'yellow' },
+        bg: 'black',
+        fg: 'white'
+    },
+    hidden: true,
+    label: ' Help Menu (Press F1 or Esc to close) ',
+    content: `
+  {bold}Controls:{/bold}
+  • {yellow-fg}Arrow Keys{/yellow-fg}: Move cursor
+  • {yellow-fg}Alphanumerics  {/yellow-fg}: Type to draw over the canvas
+  • {yellow-fg}1 - 7{/yellow-fg}: Select brush color
+  • {yellow-fg}Tab{/yellow-fg}: Cycle Drawing modes (TYPEWRITER, BRUSH)
+  • {yellow-fg}Backspace{/yellow-fg}: Delete backwards (in Typewriter Mode)
+  
+  {bold}Chat & Tools:{/bold}
+  • {yellow-fg}/{/yellow-fg}: Enter Chat Mode. Type message, hit {yellow-fg}Enter{/yellow-fg} to send! Press {yellow-fg}/{/yellow-fg} again to exit chat.
+  • {yellow-fg}Ctrl+S{/yellow-fg}: Export Canvas to file
+  • {yellow-fg}Ctrl+L{/yellow-fg}: Clear Canvas globally
+  • {yellow-fg}F1 or ?{/yellow-fg}: Toggle this Help Menu
+  • {yellow-fg}Ctrl+C{/yellow-fg}: Exit Application
+    `,
+    tags: true,
+    shadow: true
+});
+screen.append(helpBox);
+
+screen.key(['f1', '?'], () => {
+    helpBox.toggle();
+    screen.render();
+});
+
 let myUser = null;
 let canvasState = [];
 let allUsers = {};
@@ -86,8 +124,8 @@ let chatMode = false;
 let chatBuffer = '';
 
 // Drawing Modes
-const DRAWING_MODES = ['PLACEMENT', 'TYPEWRITER', 'BRUSH'];
-let currentDrawingModeIndex = 0; // Starts at PLACEMENT
+const DRAWING_MODES = ['TYPEWRITER', 'BRUSH'];
+let currentDrawingModeIndex = 0; // Starts at TYPEWRITER
 let activeBrushChar = '█'; // Default brush character if none typed yet
 
 function getStatusContent() {
@@ -121,6 +159,15 @@ screen.key(['C-l'], () => {
 });
 
 screen.on('keypress', (ch, key) => {
+    // Prevent typing / drawing when help is open
+    if (!helpBox.hidden) {
+        if (key.name === 'escape') {
+            helpBox.hide();
+            screen.render();
+        }
+        return;
+    }
+
     if (chatMode) {
         if (ch === '/') {
             chatMode = false;
