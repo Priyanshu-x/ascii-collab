@@ -1,4 +1,5 @@
 <div align="center">
+  <img src="assets/icon.png" alt="ASCII Collab Icon" width="120" />
   <h1>🎨 ASCII Collab</h1>
   <p><strong>A Real-Time, Multiplayer Terminal Drawing Board</strong></p>
   
