@@ -18,3 +18,6 @@ canvas_export.txt
 # Built Executables
 dist/
 *.exe
+
+# Local Docs
+readme.local.md
